@@ -1,1 +1,37 @@
-/* You can add global styles to this file, and also import other style files */
+html, body {
+  min-height: 100vh;
+  height: 100%;
+}
+
+body{
+  display: flex;
+  flex-direction: column;
+}
+
+main{
+  flex: 1 0 auto;
+}
+
+footer{
+  flex-shrink: 0;
+}
+
+.justify-content-center {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+
+.align-content-center {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-content: center;
+  align-content: center;
+}
+/*Size of icons*/
+
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
