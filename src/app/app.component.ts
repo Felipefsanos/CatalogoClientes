@@ -9,7 +9,7 @@ import {LoginService} from "./Services/login.service";
 export class AppComponent implements OnInit{
   title = 'CatalogoClientes';
 
-  showNavigation = false;
+  showNavigation = true; //TODO: Alterar!!!!!
 
   constructor(private loginService: LoginService){}
 
