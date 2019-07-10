@@ -9,6 +9,8 @@ import { HomeComponent } from './Pages/home/home.component';
 import {LoginService} from "./Services/login.service";
 import {HttpClientModule} from "@angular/common/http";
 import {LoginGuardService} from "./guards/login-guard.service";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {MatFormFieldModule, MatInputModule, MatPaginatorModule, MatSortModule, MatTableModule} from "@angular/material";
 
 @NgModule({
   declarations: [
@@ -16,12 +18,20 @@ import {LoginGuardService} from "./guards/login-guard.service";
     LoginComponent,
     HomeComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-		HttpClientModule
-  ],
+	imports: [
+		BrowserModule,
+		BrowserAnimationsModule,
+		AppRoutingModule,
+		ReactiveFormsModule,
+		HttpClientModule,
+
+		MatTableModule,
+		MatSortModule,
+		MatPaginatorModule,
+		MatFormFieldModule,
+		MatInputModule,
+
+	],
   providers: [LoginService, LoginGuardService],
   bootstrap: [AppComponent]
 })
