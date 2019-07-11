@@ -1,3 +1,11 @@
+main{
+	height: 110%;
+}
+
 footer{
   padding: 0;
+}
+
+a.brand-logo > i.medium{
+	font-size: 4rem !important;
 }

@@ -9,7 +9,7 @@ import {LoginService} from "./Services/login.service";
 export class AppComponent implements OnInit{
   title = 'CatalogoClientes';
 
-  showNavigation = true; //TODO: Alterar!!!!!
+  showNavigation = false;
 
   constructor(private loginService: LoginService){}
 
@@ -18,4 +18,8 @@ export class AppComponent implements OnInit{
       show => this.showNavigation = show
     );
   }
+
+  logout(){
+		this.loginService.logout();
+	}
 }

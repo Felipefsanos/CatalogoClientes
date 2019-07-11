@@ -1,11 +1,11 @@
 <header>
   <nav class="light-blue" *ngIf="showNavigation">
     <div class="nav-wrapper">
-      <a href="#" class="brand-logo">Logo</a>
+      <a href="#" class="brand-logo">
+				<i class="medium material-icons">local_library</i>
+			</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="#">Sass</a></li>
-        <li><a href="#">Components</a></li>
-        <li><a href="#">JavaScript</a></li>
+        <li><a (click)="logout()"><i class="material-icons">exit_to_app</i></a></li>
       </ul>
     </div>
   </nav>

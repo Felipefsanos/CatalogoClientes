@@ -1,0 +1,40 @@
+<div class="container valign-wrapper">
+  <div class="row">
+    <div class="col s12 m8 l8 xl8 offset-m2 offset-l3 offset-xl2">
+      <div class="card-panel hoverable">
+        <span class="card-title justify-content-center">
+          <h5>Login</h5>
+        </span>
+        <div class="row">
+          <form [formGroup]="loginForm"  (ngSubmit)="onSubmit()" class="col s12">
+            <div class="row">
+              <div class="input-field col s12">
+                <i class="material-icons prefix">account_circle</i>
+                <input id="icon_prefix" type="email" class="validate" formControlName="email"
+                       [ngClass]="{'invalid' : submitted && loginForm.invalid}" (change)="submitted = false">
+                <label for="icon_prefix">E-mail</label>
+                <span class="helper-text" data-error="E-mail inválido"></span>
+              </div>
+              <div class="input-field col s12">
+                <i class="material-icons prefix">https</i>
+                <input id="icon_telephone" type="password" minlength="5" class="validate" formControlName="password"
+                       [ngClass]="{'invalid' : submitted && loginForm.invalid}" (change)="submitted = false">
+                <label for="icon_telephone">Senha</label>
+                <span class="helper-text" data-error="Senha inválida"></span>
+              </div>
+              <div class="col s12">
+                <button class="btn waves-effect waves-light right" type="submit" name="action">Login
+                  <i class="material-icons right">send</i>
+                </button>
+                <div class="align-content-center">
+                  <i class="material-icons md-18">help</i>
+                  <a href="#">Esqueci minha senha</a>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

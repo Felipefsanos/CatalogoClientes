@@ -1,0 +1,12 @@
+.content{
+	margin-top: 10px;
+}
+
+.mat-form-field {
+	font-size: 14px;
+	width: 100%;
+}
+
+.search-button:focus{
+	background-color: #26a69a !important;
+}
