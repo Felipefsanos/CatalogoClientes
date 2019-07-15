@@ -1,0 +1,33 @@
+<div class="container content" fxLayout="column" fxLayoutAlign="center stretch">
+	<form [formGroup]="form">
+		<div fxLayout="row wrap" fxLayoutGap="10px">
+			<mat-form-field fxFlex="20 1 auto">
+				<input matInput placeholder="Razão Social" formControlName="nome">
+			</mat-form-field>
+			<mat-form-field fxFlex="1 1 auto">
+				<input matInput maxlength="19" placeholder="CNPJ" mask="00.000.000/0000-00">
+			</mat-form-field>
+		</div>
+		<div fxLayout="row wrap" fxLayoutGap="10px">
+			<mat-form-field fxFlex="20 1 auto">
+				<input matInput placeholder="Nome Fantasia" formControlName="nome">
+			</mat-form-field>
+			<mat-form-field fxFlex="1 1 auto">
+				<input matInput maxlength="16" placeholder="Inscrição Estadual" mask="000.000.000/0000">
+			</mat-form-field>
+		</div>
+		<h2 class="mat-h2" style="">Contato</h2>
+		<mat-divider></mat-divider>
+		<div fxLayout="row wrap" fxLayoutGap="10px">
+			<mat-form-field fxFlex="1 1 auto">
+				<input matInput placeholder="Telefone" formControlName="nome" mask="(00)00000-0000">
+			</mat-form-field>
+			<mat-form-field fxFlex="20 1 auto">
+				<input matInput maxlength="16" placeholder="Nome do contato">
+			</mat-form-field>
+			<mat-form-field fxFlex="10 1 auto">
+				<input matInput maxlength="16" placeholder="Nome do contato">
+			</mat-form-field>
+		</div>
+	</form>
+</div>

@@ -1,8 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator, MatTableDataSource} from "@angular/material";
-import { MatSort } from "@angular/material/sort";
+import {MatDialog, MatPaginator, MatTableDataSource} from "@angular/material";
+import {MatSort} from "@angular/material/sort";
 import {UserService} from "../../Services/base/user.service";
 import {LoginService} from "../../Services/login.service";
+import {Cliente} from 'src/app/models/cliente';
+import {ModalConfirmacaoComponent} from "../../shared/modal-confirmacao/modal-confirmacao.component";
+import {HomeService} from "../../Services/home.service";
 
 
 @Component({
@@ -11,27 +14,31 @@ import {LoginService} from "../../Services/login.service";
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-	displayedColumns: string[] = ['name', 'weight', 'symbol'];
+	displayedColumns: string[] = ['name', 'weight', 'symbol', 'acao'];
 	dataSource = new MatTableDataSource(ELEMENT_DATA);
 
 	@ViewChild(MatSort, {static: true}) sort: MatSort;
 	@ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
-	private search: boolean = false;
-
-	constructor(private userService: UserService, private loginService: LoginService){
-		if (this.userService.getUser() != null){
+	constructor(private userService: UserService,
+							private loginService: LoginService,
+							private dialog: MatDialog,
+							private homeService: HomeService){
 			loginService.showNavigation(true);
-		}
 	}
 
 	ngOnInit() {
 		this.dataSource.paginator = this.paginator;
 		this.dataSource.sort = this.sort;
+		this.applyFilter();
 	}
 
-	applyFilter(filterValue: string) {
-		this.dataSource.filter = filterValue.trim().toLowerCase();
+	applyFilter() {
+		this.homeService.filter.subscribe( filterValue => this.dataSource.filter = filterValue);
+	}
+
+	delete(cliente: Cliente){
+		this.dialog.open(ModalConfirmacaoComponent, { width: '250px'});
 	}
 }
 
@@ -43,8 +50,8 @@ export interface PeriodicElement {
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-	{position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-	{position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
+	{position: 1, name: 'HydrogenHydrogenHydrogenHydrogen', weight: 1.0079, symbol: 'H'},
+	{position: 2, name: 'HeliumHeliumHeliumHeliumHeliumHelium', weight: 4.0026, symbol: 'He'},
 	{position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
 	{position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
 	{position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},

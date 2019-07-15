@@ -1,11 +1,12 @@
+.example-icon {
+	padding: 0 14px;
+}
+
 main{
-	height: 110%;
+	min-height: calc(100vh - 115px);
 }
 
-footer{
-  padding: 0;
-}
-
-a.brand-logo > i.medium{
-	font-size: 4rem !important;
+.footer{
+	border-radius: 0;
+	color: white;
 }

@@ -1,39 +1,78 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
-html, body {
-  min-height: 100vh;
-  height: 100%;
+body {
+	margin: 0;
 }
 
-body{
-  display: flex;
-  flex-direction: column;
+.content{
+	padding: 30px 5%;
 }
 
-main{
-  flex: 1 0 auto;
+.primary-background-color {
+	background-color: #3f51b5;
 }
 
-footer{
-  flex-shrink: 0;
+a {
+	text-decoration: none;
+	color: #000000;
 }
 
-.justify-content-center {
-  display: -webkit-flex;
-  display: flex;
-  -webkit-justify-content: center;
-  justify-content: center;
+/* SnackBar Styles */
+
+.success {
+	background-color: green !important;
+	color: white !important;
 }
 
-.align-content-center {
-  display: -webkit-flex;
-  display: flex;
-  -webkit-align-content: center;
-  align-content: center;
+.success .mat-simple-snackbar-action{
+	color: white !important;
 }
-/*Size of icons*/
 
-.material-icons.md-18 { font-size: 18px; }
-.material-icons.md-24 { font-size: 24px; }
-.material-icons.md-36 { font-size: 36px; }
-.material-icons.md-48 { font-size: 48px; }
+.alert {
+	background-color: orange !important;
+	color: white !important;
+}
+
+.alert .mat-simple-snackbar-action{
+	color: white !important;
+}
+
+.error {
+	background-color: red !important;
+	color: white !important;
+}
+
+.error .mat-simple-snackbar-action{
+	color: white !important;
+}
+
+
+/* Icons Sizes */
+
+.icon-small {
+	font-size: 12px !important;
+	height: 12px !important;
+	width: 12px !important;
+	line-height: 12px !important;
+}
+
+.icon-medium {
+	font-size: 24px !important;
+	height: 24px !important;
+	width: 24px !important;
+	line-height: 24px !important;
+}
+
+.icon-large {
+	font-size: 36px !important;
+	height: 36px !important;
+	width: 36px !important;
+	line-height: 36px !important;
+}
+
+.icon-x-large {
+	font-size: 48px !important;
+	height: 48px !important;
+	width: 48px !important;
+	line-height: 48px !important;
+}

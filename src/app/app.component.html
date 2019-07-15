@@ -1,25 +1,46 @@
-<header>
-  <nav class="light-blue" *ngIf="showNavigation">
-    <div class="nav-wrapper">
-      <a href="#" class="brand-logo">
-				<i class="medium material-icons">local_library</i>
-			</a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a (click)="logout()"><i class="material-icons">exit_to_app</i></a></li>
-      </ul>
-    </div>
-  </nav>
-</header>
+<mat-toolbar color="primary" *ngIf="showNavigation">
+	<mat-toolbar-row>
+		<button mat-icon-button *ngIf="!search">
+			<ng-template [ngIf]="router.url != '/cadastro'" [ngIfElse]="iconBack" >
+				<mat-icon class="icon-large">local_library</mat-icon>
+			</ng-template>
+			<ng-template #iconBack>
+				<mat-icon class="icon-large" [routerLink]="'/home'" >arrow_back</mat-icon>
+			</ng-template>
+		</button>
+		<span class="example-spacer" *ngIf="!search" fxFlex="1 1 auto"></span>
+		<button mat-icon-button *ngIf="!search" (click)="search = true">
+			<mat-icon class="icon-large">search</mat-icon>
+		</button>
+		<span class="example-spacer" *ngIf="!search" fxFlex="5px"></span>
+		<div *ngIf="search" fxFlex="5%" fxFlex.md="6%" fxFlex.sm="7%" fxFlex.lt-sm="10%">
+			<button mat-icon-button (click)="search = false">
+				<mat-icon>arrow_back</mat-icon>
+			</button>
+		</div>
+		<mat-form-field class="animated" floatLabel="never" fxFlex="95%" fxFlex.md="94%" fxFlex.sm="93%" fxFlex.lt-sm="90%"
+										*ngIf="search"
+										[ngClass]="{'slideOutRight': !search, 'slideInRight': search }">
+			<input matInput type="text" (keyup)="applyFilter(filter)" placeholder="Digite sua busca aqui"
+						 [(ngModel)]="filter">
+			<button mat-button *ngIf="filter" matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter()">
+				<mat-icon>close</mat-icon>
+			</button>
+		</mat-form-field>
+		<span class="example-spacer" *ngIf="!search" fxFlex="5%"></span>
+		<button mat-icon-button *ngIf="!search">
+			<mat-icon class="icon-large">more_vert</mat-icon>
+		</button>
+	</mat-toolbar-row>
+</mat-toolbar>
 
 <main>
-  <router-outlet></router-outlet>
+	<router-outlet></router-outlet>
 </main>
 
-<footer class="page-footer light-blue darken-2" *ngIf="showNavigation">
-  <div class="footer-copyright">
-    <div class="container">
-      © 2014 Copyright Text
-      <a class="grey-text text-lighten-4 right" href="#">More Links</a>
-    </div>
-  </div>
+<footer *ngIf="false">
+	<mat-card fxLayout="row" fxLayoutAlign="start center" class="primary-background-color footer">
+		<mat-icon class="icon-small">copyright</mat-icon>
+		Felipe Rodrigues
+	</mat-card>
 </footer>

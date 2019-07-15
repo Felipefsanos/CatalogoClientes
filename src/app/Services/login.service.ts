@@ -4,6 +4,7 @@ import {BaseHttpService} from "./base/base-http.service";
 import {HttpClient} from "@angular/common/http";
 import {UserService} from "./base/user.service";
 import {Md5} from 'ts-md5/dist/md5';
+import {Observable} from "rxjs";
 
 @Injectable({
 	providedIn: 'root'
@@ -18,15 +19,9 @@ export class LoginService extends BaseHttpService{
 		super(http);
 	}
 
-	public login(login: any) {
+	public login(login: any): Observable<any> {
 		const loginModel = { email: login.email, hash: Md5.hashAsciiStr( `${login.email}${login.password}`) };
-		this.post('login', loginModel).subscribe(res => {
-			if (res) {
-				this.userService.setUser(res);
-				this.router.navigateByUrl('/home');
-				this.showNavigation(true);
-			}
-		})
+		return this.post('login', loginModel);
 	}
 
 	public logout(){

@@ -1,12 +1,33 @@
-.content{
-	margin-top: 10px;
+td, th {
+	border-right: 1px solid rgba(0, 0, 0, 0.15);
+	justify-content: center !important;
+	text-align: center;
 }
 
-.mat-form-field {
-	font-size: 14px;
+::ng-deep .mat-sort-header-container {
+	justify-content: center;
+}
+
+table {
 	width: 100%;
 }
 
-.search-button:focus{
+.mat-header-cell {
+	text-align: center;
+}
+
+.search-button:focus {
 	background-color: #26a69a !important;
+}
+
+button.action {
+	margin: 0 5px 0 5px;
+}
+
+
+.fab-container {
+	position: fixed;
+	bottom: 15px;
+	right: 15px;
+	z-index: 100;
 }
