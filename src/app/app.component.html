@@ -1,3 +1,4 @@
+<app-loading></app-loading>
 <mat-toolbar color="primary" *ngIf="showNavigation">
 	<mat-toolbar-row>
 		<button mat-icon-button *ngIf="!search">
@@ -8,11 +9,13 @@
 				<mat-icon class="icon-large" [routerLink]="'/home'" >arrow_back</mat-icon>
 			</ng-template>
 		</button>
-		<span class="example-spacer" *ngIf="!search" fxFlex="1 1 auto"></span>
-		<button mat-icon-button *ngIf="!search" (click)="search = true">
+		<span *ngIf="!search" fxFlex="1 1 auto"></span>
+		<span *ngIf="router.url == '/cadastro'">Cadastro</span>
+		<span *ngIf="!search" fxFlex="1 1 auto"></span>
+		<button mat-icon-button *ngIf="!search && router.url != '/cadastro'" (click)="search = true">
 			<mat-icon class="icon-large">search</mat-icon>
 		</button>
-		<span class="example-spacer" *ngIf="!search" fxFlex="5px"></span>
+		<span *ngIf="!search && router.url != '/cadastro'" fxFlex="5px"></span>
 		<div *ngIf="search" fxFlex="5%" fxFlex.md="6%" fxFlex.sm="7%" fxFlex.lt-sm="10%">
 			<button mat-icon-button (click)="search = false">
 				<mat-icon>arrow_back</mat-icon>
@@ -27,10 +30,20 @@
 				<mat-icon>close</mat-icon>
 			</button>
 		</mat-form-field>
-		<span class="example-spacer" *ngIf="!search" fxFlex="5%"></span>
-		<button mat-icon-button *ngIf="!search">
+		<span *ngIf="!search && router.url != '/cadastro'" fxFlex="5%"></span>
+		<button mat-icon-button *ngIf="!search" [matMenuTriggerFor]="menu">
 			<mat-icon class="icon-large">more_vert</mat-icon>
 		</button>
+		<mat-menu #menu="matMenu">
+			<button mat-menu-item (click)="logout()">
+				<mat-icon>exit_to_app</mat-icon>
+				<span>Sair</span>
+			</button>
+			<button mat-menu-item>
+				<mat-icon>info</mat-icon>
+				<span>Sobre</span>
+			</button>
+		</mat-menu>
 	</mat-toolbar-row>
 </mat-toolbar>
 

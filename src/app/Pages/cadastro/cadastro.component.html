@@ -1,33 +1,108 @@
 <div class="container content" fxLayout="column" fxLayoutAlign="center stretch">
-	<form [formGroup]="form">
+	<form [formGroup]="form" (ngSubmit)="onSubmit()">
 		<div fxLayout="row wrap" fxLayoutGap="10px">
 			<mat-form-field fxFlex="20 1 auto">
-				<input matInput placeholder="Razão Social" formControlName="nome">
+				<input matInput placeholder="Razão Social" formControlName="razaoSocial" required>
+				<mat-error *ngIf="form.controls.razaoSocial.invalid">{{getMessagemObrigatorio()}}</mat-error>
 			</mat-form-field>
 			<mat-form-field fxFlex="1 1 auto">
-				<input matInput maxlength="19" placeholder="CNPJ" mask="00.000.000/0000-00">
+				<input matInput maxlength="19" placeholder="CNPJ" mask="00.000.000/0000-00" required formControlName="cnpj">
+				<mat-error *ngIf="form.controls.cnpj.invalid">{{getMessagemObrigatorio()}}</mat-error>
+				<mat-error *ngIf="form.controls.cnpj.minLength">Valor inválido</mat-error>
 			</mat-form-field>
 		</div>
 		<div fxLayout="row wrap" fxLayoutGap="10px">
 			<mat-form-field fxFlex="20 1 auto">
-				<input matInput placeholder="Nome Fantasia" formControlName="nome">
+				<input matInput placeholder="Nome Fantasia" formControlName="nomeFantasia" required>
+				<mat-error *ngIf="form.controls.nomeFantasia.invalid">{{getMessagemObrigatorio()}}</mat-error>
 			</mat-form-field>
 			<mat-form-field fxFlex="1 1 auto">
-				<input matInput maxlength="16" placeholder="Inscrição Estadual" mask="000.000.000/0000">
+				<input matInput maxlength="16" placeholder="Inscrição Estadual" mask="000.000.000/0000" required
+							 formControlName="inscricaoEstadual">
+				<mat-error *ngIf="form.controls.inscricaoEstadual.invalid">{{getMessagemObrigatorio()}}</mat-error>
 			</mat-form-field>
 		</div>
-		<h2 class="mat-h2" style="">Contato</h2>
+		<h2 class="mat-h2">Contato</h2>
 		<mat-divider></mat-divider>
+		<div formArrayName="telefones">
+			<div *ngFor="let item of telefones.controls; let i=index">
+				<div fxLayout="row wrap" fxLayoutGap="10px" class="contato-container" formGroupName="{{i}}">
+					<mat-form-field fxFlex="1 1 auto" fxFlex.xs="35%">
+						<input matInput placeholder="Telefone" formControlName="telefone" mask="(00)00000-0000" required>
+						<mat-error *ngIf="item.controls.telefone.invalid">{{getMessagemObrigatorio()}}</mat-error>
+					</mat-form-field>
+					<mat-form-field fxFlex="20 1 auto" fxFlex.xs="35%">
+						<input matInput maxlength="16" placeholder="Nome do contato" formControlName="contato" required>
+						<mat-error *ngIf="item.controls.contato.invalid">{{getMessagemObrigatorio()}}</mat-error>
+					</mat-form-field>
+					<div fxFlex="0 1 auto" fxLayoutAlign="end" fxLayoutGap="10px" fxFlex.xs="20%">
+						<button mat-mini-fab class="fab-button-green" type="button" (click)="adicionarMaisTelefone()"
+										*ngIf="i == telefones.length-1 && i < 2">
+							<mat-icon>add</mat-icon>
+						</button>
+						<button mat-mini-fab type="button" color="warn" (click)="removerTelefone(i)"
+										*ngIf="i != 0">
+							<mat-icon>delete</mat-icon>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div fxLayout="row wrap" fxLayoutGap="10px">
 			<mat-form-field fxFlex="1 1 auto">
-				<input matInput placeholder="Telefone" formControlName="nome" mask="(00)00000-0000">
+				<input matInput type="email" placeholder="E-mail" formControlName="email1">
 			</mat-form-field>
-			<mat-form-field fxFlex="20 1 auto">
-				<input matInput maxlength="16" placeholder="Nome do contato">
-			</mat-form-field>
-			<mat-form-field fxFlex="10 1 auto">
-				<input matInput maxlength="16" placeholder="Nome do contato">
+			<mat-form-field fxFlex="1 1 auto">
+				<input matInput type="email" placeholder="E-mail" formControlName="email2">
 			</mat-form-field>
 		</div>
+		<h2 class="mat-h2">Endereço</h2>
+		<mat-divider></mat-divider>
+		<div formGroupName="endereco">
+			<div fxLayout="row wrap" fxLayoutGap="10px" class="endereco-container">
+				<div fxLayout="row" fxLayoutGap="10px" fxFill>
+					<mat-form-field fxFlex="1 1 auto" fxFlex.xs="75%">
+						<input matInput placeholder="Logradouro" formControlName="logradouro" required>
+						<mat-error *ngIf="endereco.controls.logradouro.invalid">{{getMessagemObrigatorio()}}</mat-error>
+					</mat-form-field>
+					<mat-form-field fxFlex="10%" fxFlex.xs="25%">
+						<input matInput maxlength="5" type="number" placeholder="Número" required formControlName="numero">
+						<mat-error *ngIf="endereco.controls.numero.invalid">{{getMessagemObrigatorio()}}</mat-error>
+					</mat-form-field>
+				</div>
+				<div fxLayout="row wrap" fxLayoutGap="10px" fxFill>
+					<mat-form-field fxFlex="1 1 auto">
+						<input matInput placeholder="Complemento" formControlName="complemento">
+					</mat-form-field>
+					<mat-form-field fxFlex="1 1 auto">
+						<input matInput placeholder="Bairro" required formControlName="bairro">
+						<mat-error *ngIf="endereco.controls.bairro.invalid">{{getMessagemObrigatorio()}}</mat-error>
+					</mat-form-field>
+					<mat-form-field fxFlex="1 1 auto" fxFlex.xs="70%">
+						<input matInput placeholder="Cidade" required formControlName="cidade">
+						<mat-error *ngIf="endereco.controls.cidade.invalid">{{getMessagemObrigatorio()}}</mat-error>
+					</mat-form-field>
+					<mat-form-field fxFlex="10%" fxFlex.xs="25%">
+						<mat-select placeholder="UF" required formControlName="uf">
+							<mat-option *ngFor="let estado of estados" [value]="estado">
+								{{estado}}
+							</mat-option>
+						</mat-select>
+						<mat-error *ngIf="endereco.controls.uf.invalid">{{getMessagemObrigatorio()}}</mat-error>
+					</mat-form-field>
+				</div>
+			</div>
+		</div>
+		<div fxLayout="row" fxFill>
+			<mat-form-field fxFlex="1 1 auto">
+				<textarea matInput placeholder="Observações" formControlName="observacoes"></textarea>
+			</mat-form-field>
+		</div>
+		<div fxLayout="row" fxFill fxLayoutAlign="end">
+			<button mat-raised-button color="primary" type="submit" fxFlex="25%" fxFlex.xs="100%">
+				<i class="material-icons">save</i>
+			</button>
+		</div>
+
 	</form>
 </div>

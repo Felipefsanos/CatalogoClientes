@@ -1,0 +1,7 @@
+.loading-container{
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	z-index: 999999;
+	background-color: rgba(63,63,191,0.4);
+}

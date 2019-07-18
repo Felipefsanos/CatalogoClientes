@@ -76,3 +76,33 @@ a {
 	width: 48px !important;
 	line-height: 48px !important;
 }
+
+/* Buttons */
+
+button.button-orange > .mat-button-focus-overlay{
+	background-color: orange !important;
+}
+
+button.button-orange > .mat-button-ripple.mat-ripple{
+	color: orange !important;
+}
+
+button.button-orange > span > i.material-icons{
+	color: orange !important;
+}
+
+button.fab-button-green{
+	background-color: green !important;
+	color: white !important;
+}
+
+button.fab-button-green > .mat-button-focus-overlay{
+	background-color: green !important;
+}
+button.fab-button-green > .mat-button-ripple.mat-ripple{
+	color: green !important;
+}
+
+
+
+
