@@ -32,7 +32,7 @@
 						<mat-error *ngIf="item.controls.telefone.invalid">{{getMessagemObrigatorio()}}</mat-error>
 					</mat-form-field>
 					<mat-form-field fxFlex="20 1 auto" fxFlex.xs="35%">
-						<input matInput maxlength="16" placeholder="Nome do contato" formControlName="contato" required>
+						<input matInput placeholder="Nome do contato" formControlName="contato" required>
 						<mat-error *ngIf="item.controls.contato.invalid">{{getMessagemObrigatorio()}}</mat-error>
 					</mat-form-field>
 					<div fxFlex="0 1 auto" fxLayoutAlign="end" fxLayoutGap="10px" fxFlex.xs="20%">

@@ -27,12 +27,12 @@ export class CadastroComponent implements OnInit {
 	construirFormulario(): void {
 		this.form = this.formBuilder.group({
 			razaoSocial: ['', [Validators.required]],
-			cnpj: ['', [Validators.required, Validators.minLength(18)]],
+			cnpj: ['', [Validators.required, Validators.minLength(12)]],
 			nomeFantasia: ['', [Validators.required]],
-			inscricaoEstadual: ['', [Validators.required, Validators.minLength(16)]],
+			inscricaoEstadual: ['', [Validators.required, Validators.minLength(13)]],
 			telefones: this.formBuilder.array([
 				this.formBuilder.group({
-					telefone: ['', [Validators.required, Validators.minLength(13)]],
+					telefone: ['', [Validators.required, Validators.minLength(11)]],
 					contato: ['', [Validators.required]]
 				})
 			]),
@@ -61,11 +61,18 @@ export class CadastroComponent implements OnInit {
 		this.telefones.removeAt(index);
 	}
 
-	onSubmit(){
-
+	onSubmit() {
+		// if (this.form.invalid) {
+		// 	return;
+		// }
+		this.cadastroService.enviarCliente(this.form.value).subscribe(res => {
+			if (res) {
+				console.log(res);
+			}
+		});
 	}
 
-	getMessagemObrigatorio(): string{
+	getMessagemObrigatorio(): string {
 		return 'Campo Obrigatório';
 	}
 
@@ -73,7 +80,7 @@ export class CadastroComponent implements OnInit {
 		return this.form.get('telefones') as FormArray
 	}
 
-	get endereco(): FormGroup{
+	get endereco(): FormGroup {
 		return this.form.get('endereco') as FormGroup
 	}
 }

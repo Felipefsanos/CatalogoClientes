@@ -1,4 +1,4 @@
 export class Telefone {
-	ddd?: number;
 	numero?: number;
+	contato: string;
 }

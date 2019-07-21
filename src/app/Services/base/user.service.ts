@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {User} from "../../models/user";
 import {Token} from "../../models/token";
 import * as jwt_decode from "jwt-decode";
@@ -8,7 +8,7 @@ import * as jwt_decode from "jwt-decode";
 })
 export class UserService {
 
-	currentUser: User;
+	private currentUser: User;
 
   constructor() {
   	this.currentUser = JSON.parse(localStorage.getItem('currentUser'));

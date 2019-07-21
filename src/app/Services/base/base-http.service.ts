@@ -1,7 +1,6 @@
-import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {Injectable} from '@angular/core';
+import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {UserService} from "./user.service";
 import {environment} from "../../../environments/environment";
 
 @Injectable({
@@ -11,29 +10,21 @@ export class BaseHttpService {
 
 	baseUrl: string = environment.api;
 
-  constructor(protected http: HttpClient, protected userService?: UserService) { }
-
-  getHttpHeaders(): HttpHeaders{
-  	const user = this.userService.getUser();
-  	if (user == null){
-			return;
-		}
-		return new HttpHeaders({'Authorization': `Bearer ${user.token}`})
-	}
+  constructor(protected http: HttpClient) { }
 
   public get(url: string, params?: string): Observable<any>{
-			return this.http.get(this.baseUrl + url, {headers: this.getHttpHeaders(), params: {params}});
+			return this.http.get(this.baseUrl + url, { params: {params}});
 	}
 
 	public post(url: string, body?: any): Observable<any>{
-		return this.http.post( this.baseUrl + url, body,{headers: this.getHttpHeaders()});
+		return this.http.post( this.baseUrl + url, body);
 	}
 
 	public put(url: string, body?: any): Observable<any>{
-		return this.http.put(this.baseUrl + url, body,{headers: this.getHttpHeaders()});
+		return this.http.put(this.baseUrl + url, body);
 	}
 
 	public delete(url: string, params?: string): Observable<any>{
-		return this.http.delete(this.baseUrl + url, {headers: this.getHttpHeaders(), params: {params}});
+		return this.http.delete(this.baseUrl + url,{ params: {params}});
 	}
 }
