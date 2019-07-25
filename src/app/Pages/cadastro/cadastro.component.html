@@ -28,8 +28,8 @@
 			<div *ngFor="let item of telefones.controls; let i=index">
 				<div fxLayout="row wrap" fxLayoutGap="10px" class="contato-container" formGroupName="{{i}}">
 					<mat-form-field fxFlex="1 1 auto" fxFlex.xs="35%">
-						<input matInput placeholder="Telefone" formControlName="telefone" mask="(00)00000-0000" required>
-						<mat-error *ngIf="item.controls.telefone.invalid">{{getMessagemObrigatorio()}}</mat-error>
+						<input matInput placeholder="Telefone" formControlName="numero" mask="(00)00000-0000" required>
+						<mat-error *ngIf="item.controls.numero.invalid">{{getMessagemObrigatorio()}}</mat-error>
 					</mat-form-field>
 					<mat-form-field fxFlex="20 1 auto" fxFlex.xs="35%">
 						<input matInput placeholder="Nome do contato" formControlName="contato" required>

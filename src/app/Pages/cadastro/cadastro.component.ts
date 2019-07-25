@@ -3,6 +3,7 @@ import {LoginService} from "../../Services/login.service";
 import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Constantes} from "../../shared/constants/constantes";
 import {CadastroService} from "../../Services/cadastro.service";
+import {MessageService} from "../../Services/base/message.service";
 
 @Component({
 	selector: 'app-cadastro',
@@ -16,7 +17,8 @@ export class CadastroComponent implements OnInit {
 
 	constructor(private loginService: LoginService,
 							private formBuilder: FormBuilder,
-							private cadastroService: CadastroService) {
+							private cadastroService: CadastroService,
+							private  message: MessageService) {
 		loginService.showNavigation(true);
 	}
 
@@ -32,7 +34,7 @@ export class CadastroComponent implements OnInit {
 			inscricaoEstadual: ['', [Validators.required, Validators.minLength(13)]],
 			telefones: this.formBuilder.array([
 				this.formBuilder.group({
-					telefone: ['', [Validators.required, Validators.minLength(11)]],
+					numero: ['', [Validators.required, Validators.minLength(11)]],
 					contato: ['', [Validators.required]]
 				})
 			]),
@@ -52,7 +54,7 @@ export class CadastroComponent implements OnInit {
 
 	adicionarMaisTelefone(): void {
 		this.telefones.push(this.formBuilder.group({
-			telefone: [''],
+			numero: [''],
 			contato: ['']
 		}));
 	}
@@ -62,13 +64,15 @@ export class CadastroComponent implements OnInit {
 	}
 
 	onSubmit() {
-		// if (this.form.invalid) {
-		// 	return;
-		// }
-		this.cadastroService.enviarCliente(this.form.value).subscribe(res => {
-			if (res) {
-				console.log(res);
-			}
+		if (this.form.invalid) {
+			return;
+		}
+
+		this.cadastroService.enviarCliente(this.form.value).subscribe(() => {
+			this.message.successMessage('Cliente salvo com sucesso');
+		}, error => {
+			this.message.successMessage(error.message);
+			console.log(error)
 		});
 	}
 

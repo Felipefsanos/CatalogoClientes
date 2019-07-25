@@ -72,7 +72,7 @@ import {InterceptorService} from "./Services/base/interceptor.service";
 		FlexLayoutModule,
 		MatProgressSpinnerModule,
 		_MatMenuDirectivesModule,
-		MatMenuModule
+		MatMenuModule,
 
 	],
   providers: [LoginService, LoginGuardService, {

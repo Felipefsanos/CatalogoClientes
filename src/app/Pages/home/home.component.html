@@ -3,24 +3,24 @@
 		<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
 			<!-- Name Column -->
-			<ng-container matColumnDef="name">
-				<th mat-header-cell *matHeaderCellDef mat-sort-header> Nome</th>
-				<td mat-cell *matCellDef="let element"> {{element.name}} </td>
+			<ng-container matColumnDef="{{displayedColumns[0]}}">
+				<th mat-header-cell *matHeaderCellDef mat-sort-header> Nome Fantasia</th>
+				<td mat-cell *matCellDef="let element"> {{element.razaoSocial}} </td>
 			</ng-container>
 
 			<!-- Weight Column -->
-			<ng-container matColumnDef="weight">
+			<ng-container matColumnDef="{{displayedColumns[1]}}">
 				<th mat-header-cell *matHeaderCellDef mat-sort-header> Telefone</th>
-				<td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+				<td mat-cell *matCellDef="let element"> {{element.telefones[0].numero}} </td>
 			</ng-container>
 
 			<!-- Symbol Column -->
-			<ng-container matColumnDef="symbol">
-				<th mat-header-cell *matHeaderCellDef mat-sort-header> Celular</th>
-				<td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+			<ng-container matColumnDef="{{displayedColumns[2]}}">
+				<th mat-header-cell *matHeaderCellDef mat-sort-header> Contato</th>
+				<td mat-cell *matCellDef="let element"> {{element.telefones[0].contato}} </td>
 			</ng-container>
 
-			<ng-container matColumnDef="acao">
+			<ng-container matColumnDef="{{displayedColumns[3]}}">
 				<th mat-header-cell *matHeaderCellDef> Ação</th>
 				<td mat-cell *matCellDef="let element">
 					<button mat-button class="button-orange" type="button">
@@ -28,6 +28,9 @@
 					</button>
 					<button mat-button type="button" color="warn" (click)="delete(element)">
 						<i class="material-icons">delete</i>
+					</button>
+					<button mat-button type="button" color="primary">
+						<i class="material-icons">remove_red_eye</i>
 					</button>
 				</td>
 			</ng-container>
