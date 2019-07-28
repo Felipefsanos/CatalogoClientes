@@ -5,15 +5,19 @@ import {Cliente} from "../models/cliente";
 import {Observable} from "rxjs";
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class CadastroService extends BaseHttpService {
 
-  constructor(protected http: HttpClient) {
-  	super(http);
+	constructor(protected http: HttpClient) {
+		super(http);
 	}
 
-  enviarCliente(cliente: Cliente): Observable<any>{
+	enviarCliente(cliente: Cliente): Observable<any> {
 		return this.post('clients', cliente);
+	}
+
+	obterCliente(id: number): Observable<any> {
+		return this.get(`clients/${id}`);
 	}
 }

@@ -1,11 +1,13 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatDialog, MatPaginator, MatSnackBar, MatTableDataSource} from "@angular/material";
+import {MatDialog, MatPaginator, MatTableDataSource} from "@angular/material";
 import {MatSort} from "@angular/material/sort";
 import {UserService} from "../../Services/base/user.service";
 import {LoginService} from "../../Services/login.service";
 import {Cliente} from 'src/app/models/cliente';
 import {ModalConfirmacaoComponent} from "../../shared/modal-confirmacao/modal-confirmacao.component";
 import {HomeService} from "../../Services/home.service";
+import {MessageService} from "../../Services/base/message.service";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -24,7 +26,8 @@ export class HomeComponent implements OnInit {
 							private loginService: LoginService,
 							private dialog: MatDialog,
 							private homeService: HomeService,
-							private snackBar: MatSnackBar) {
+							private messageService: MessageService,
+							private router: Router) {
 		loginService.showNavigation(true);
 	}
 
@@ -38,7 +41,17 @@ export class HomeComponent implements OnInit {
 	}
 
 	delete(cliente: Cliente) {
-		this.dialog.open(ModalConfirmacaoComponent);
+		const dialogRef = this.dialog.open(ModalConfirmacaoComponent, { data: cliente.id});
+
+		dialogRef.afterClosed().subscribe(mensagem => {
+			if(mensagem.error) {
+				this.messageService.errorMessage(mensagem.error);
+			}
+			else{
+				this.messageService.successMessage(mensagem.success);
+				this.obterClients();
+			}
+		});
 	}
 
 	obterClients(): void {
@@ -49,13 +62,7 @@ export class HomeComponent implements OnInit {
 				this.dataSource.sort = this.sort;
 			}
 		}, error => {
-			this.snackBar.open('Erro ao obter lista de clientes', 'OK',
-				{
-					horizontalPosition: "end",
-					verticalPosition: "top",
-					duration: 7000,
-					panelClass: 'A700'
-				});
+			this.messageService.errorMessage('Erro ao obter lista de clientes');
 			console.log(error);
 		})
 	}

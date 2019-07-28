@@ -17,4 +17,8 @@ export class HomeService extends BaseHttpService{
 	obterClientes(): Observable<any> {
 		return this.get('clients');
 	}
+
+	excluirCliente(id: number): Observable<any> {
+		return this.delete(`clients/${id}`);
+	}
 }

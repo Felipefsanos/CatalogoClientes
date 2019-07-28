@@ -10,7 +10,7 @@
 			</ng-template>
 		</button>
 		<span *ngIf="!search" fxFlex="1 1 auto"></span>
-		<span *ngIf="router.url == '/cadastro'">Cadastro</span>
+		<span *ngIf="router.url == '/cadastro'">{{editMode ? 'Edição' : 'Cadastro'}}</span>
 		<span *ngIf="!search" fxFlex="1 1 auto"></span>
 		<button mat-icon-button *ngIf="!search && router.url != '/cadastro'" (click)="search = true">
 			<mat-icon class="icon-large">search</mat-icon>

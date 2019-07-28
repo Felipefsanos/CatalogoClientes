@@ -4,44 +4,38 @@ import {HomeService} from "./Services/home.service";
 import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+	selector: 'app-root',
+	templateUrl: './app.component.html',
+	styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
 
-  showNavigation = false;
-	back: boolean = false;
-  search: boolean = false;
-  filter: string;
+	showNavigation = false;
+	search: boolean = false;
+	filter: string;
 
-
-  constructor(private loginService: LoginService,
+	constructor(private loginService: LoginService,
 							private homeService: HomeService,
-							private router: Router){}
-
-  ngOnInit(){
-    this.loginService.show.subscribe(
-      show => this.showNavigation = show
-    );
-  }
-
-  logout(){
-		this.loginService.logout();
+							private router: Router) {
 	}
 
-	goBack(){
-		this.router.initialNavigation();
+	ngOnInit() {
+		this.loginService.show.subscribe(
+			show => this.showNavigation = show
+		);
+	}
+
+	logout() {
+		this.loginService.logout();
 	}
 
 	applyFilter(filterValue: string) {
 		this.homeService.filter.emit(filterValue.trim().toLowerCase());
 	}
 
-	clearFilter(){
-  	this.filter = '';
-  	this.homeService.filter.emit(this.filter);
+	clearFilter() {
+		this.filter = '';
+		this.homeService.filter.emit(this.filter);
 	}
-
 
 }

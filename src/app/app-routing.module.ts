@@ -9,6 +9,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full'},
   { path: 'home', component: HomeComponent, canActivate: [LoginGuardService]},
 	{ path: 'cadastro', component: CadastroComponent, canActivate: [LoginGuardService]},
+	{ path: 'editar/:id', component: CadastroComponent, canActivate: [LoginGuardService]},
   { path: 'login', component: LoginComponent}
 ];
 

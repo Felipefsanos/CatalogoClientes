@@ -1,7 +1,15 @@
-<h1 mat-dialog-title>Alerta</h1>
-<div mat-dialog-content>
+<div fxLayout="row" fxLayoutAlign="space-evenly center">
+	<div fxLayout="row" >
+	<mat-icon style="margin-bottom: 20px">warning</mat-icon>
+	</div>
+	<div fxLayout="row" fxFlex="3 3 auto" fxLayoutAlign="center center">
+	<h1 mat-dialog-title>Alerta</h1>
+	</div>
+</div>
+<div mat-dialog-content class="modal-content">
 	Tem certeza de que deseja excluir?
 </div>
-<div mat-dialog-actions>
-
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+	<button mat-raised-button color="warn" (click)="dialogRef.close()">Não</button>
+	<button mat-raised-button color="primary" (click)="excluirRegistro()">Sim</button>
 </div>
