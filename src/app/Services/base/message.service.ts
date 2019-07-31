@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {MatSnackBar} from "@angular/material";
+import {MatSnackBar, MatSnackBarRef, SimpleSnackBar} from "@angular/material";
 
 @Injectable({
   providedIn: 'root'
@@ -8,9 +8,9 @@ export class MessageService {
 
   constructor(private snackBar: MatSnackBar) { }
 
-  public successMessage(message: string): void{
+  public successMessage(message: string): MatSnackBarRef<SimpleSnackBar>{
 
-  	this.snackBar.open(message, 'OK', {
+  	return this.snackBar.open(message, 'OK', {
   		panelClass: ['success'],
 			duration: 5000,
 			verticalPosition: "top",
@@ -19,9 +19,9 @@ export class MessageService {
 
 	}
 
-	public errorMessage(message: string): void{
+	public errorMessage(message: string): MatSnackBarRef<SimpleSnackBar>{
 
-		this.snackBar.open(message, 'OK', {
+		return this.snackBar.open(message, 'OK', {
 			panelClass: ['error'],
 			duration: 5000,
 			verticalPosition: "top",

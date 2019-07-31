@@ -2,7 +2,7 @@
 <mat-toolbar color="primary" *ngIf="showNavigation">
 	<mat-toolbar-row>
 		<button mat-icon-button *ngIf="!search">
-			<ng-template [ngIf]="router.url != '/cadastro'" [ngIfElse]="iconBack" >
+			<ng-template [ngIf]="router.url.includes('home')" [ngIfElse]="iconBack" >
 				<mat-icon class="icon-large">local_library</mat-icon>
 			</ng-template>
 			<ng-template #iconBack>
@@ -10,12 +10,13 @@
 			</ng-template>
 		</button>
 		<span *ngIf="!search" fxFlex="1 1 auto"></span>
-		<span *ngIf="router.url == '/cadastro'">{{editMode ? 'Edição' : 'Cadastro'}}</span>
+		<span *ngIf="router.url.includes('cadastro')">Cadastro</span>
+		<span *ngIf="router.url.includes('editar')">Editar</span>
 		<span *ngIf="!search" fxFlex="1 1 auto"></span>
-		<button mat-icon-button *ngIf="!search && router.url != '/cadastro'" (click)="search = true">
+		<button mat-icon-button *ngIf="!search && router.url.includes('home')" (click)="search = true">
 			<mat-icon class="icon-large">search</mat-icon>
 		</button>
-		<span *ngIf="!search && router.url != '/cadastro'" fxFlex="5px"></span>
+		<span *ngIf="!search && router.url.includes('home')" fxFlex="5px"></span>
 		<div *ngIf="search" fxFlex="5%" fxFlex.md="6%" fxFlex.sm="7%" fxFlex.lt-sm="10%">
 			<button mat-icon-button (click)="search = false">
 				<mat-icon>arrow_back</mat-icon>
@@ -30,7 +31,7 @@
 				<mat-icon>close</mat-icon>
 			</button>
 		</mat-form-field>
-		<span *ngIf="!search && router.url != '/cadastro'" fxFlex="5%"></span>
+		<span *ngIf="!search && router.url.includes('home')" fxFlex="5%"></span>
 		<button mat-icon-button *ngIf="!search" [matMenuTriggerFor]="menu">
 			<mat-icon class="icon-large">more_vert</mat-icon>
 		</button>

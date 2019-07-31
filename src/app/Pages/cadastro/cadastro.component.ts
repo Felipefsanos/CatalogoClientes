@@ -8,6 +8,8 @@ import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {switchMap} from "rxjs/operators";
 import {HttpErrorResponse} from "@angular/common/http";
 import {Cliente} from "../../models/cliente";
+import {Telefone} from "../../models/telefone";
+import {Endereco} from "../../models/endereco";
 
 @Component({
 	selector: 'app-cadastro',
@@ -18,6 +20,8 @@ export class CadastroComponent implements OnInit {
 
 	estados: string[] = Constantes.estados;
 	form: FormGroup;
+	editMode = false;
+	idCliente: number;
 
 	constructor(private loginService: LoginService,
 							private formBuilder: FormBuilder,
@@ -26,66 +30,40 @@ export class CadastroComponent implements OnInit {
 							private activatedRoute: ActivatedRoute,
 							private  router: Router) {
 		loginService.showNavigation(true);
+
+
 	}
 
 	ngOnInit() {
+		this.construirFormulario();
 		if (this.router.url.includes('editar')) {
-			let id;
+			this.editMode = true;
 			this.activatedRoute.paramMap.pipe(
 				switchMap((params: ParamMap) =>
 					this.cadastroService.obterCliente(parseInt(params.get('id')))
 				)
 			).subscribe(res => {
-					this.construirFormularioEdicao(res);
+					this.idCliente = res.id;
+					this.construirFormulario(res);
 				}, (error: HttpErrorResponse) => {
 					this.message.errorMessage(error.message);
 				}
 			);
 
-			this.cadastroService.obterCliente(parseInt(id)).subscribe(res => {
-				this.construirFormularioEdicao(res);
-			}, (error: HttpErrorResponse) => {
-				this.message.errorMessage(error.message);
-			});
-
-		} else {
-			this.construirFormularioCadastro();
-
 		}
 	}
 
-	construirFormularioCadastro(): void {
+	construirFormulario(cliente?: Cliente): void {
 
-		this.form = this.formBuilder.group({
-			razaoSocial: ['', [Validators.required]],
-			cnpj: ['', [Validators.required, Validators.minLength(12)]],
-			nomeFantasia: ['', [Validators.required]],
-			inscricaoEstadual: ['', [Validators.required, Validators.minLength(13)]],
-			telefones: this.formBuilder.array([
-				this.formBuilder.group({
-					numero: ['', [Validators.required, Validators.minLength(11)]],
-					contato: ['', [Validators.required]]
-				})
-			]),
-			email1: [''],
-			email2: [''],
-			endereco: this.formBuilder.group({
-				logradouro: ['', [Validators.required]],
-				numero: ['', [Validators.required]],
-				complemento: [''],
-				bairro: ['', [Validators.required]],
-				cidade: ['', [Validators.required]],
-				uf: ['', [Validators.required]],
-			}),
-			observacoes: ['']
-		})
-	}
-
-	construirFormularioEdicao(cliente: Cliente): void {
+		if (!cliente) {
+			cliente = new Cliente();
+			cliente.telefones = [new Telefone()];
+			cliente.endereco = new Endereco()
+		}
 
 		this.form = this.formBuilder.group({
 			razaoSocial: [cliente.razaoSocial, [Validators.required]],
-			cnpj: [cliente.CNPJ, [Validators.required, Validators.minLength(12)]],
+			cnpj: [cliente.cnpj, [Validators.required, Validators.minLength(12)]],
 			nomeFantasia: [cliente.nomeFantasia, [Validators.required]],
 			inscricaoEstadual: [cliente.inscricaoEstadual, [Validators.required, Validators.minLength(13)]],
 			telefones: this.formBuilder.array([]),
@@ -102,16 +80,13 @@ export class CadastroComponent implements OnInit {
 			observacoes: ['']
 		});
 
-		if (cliente.telefones.length > 1) {
-			for (const telefone of cliente.telefones) {
-				this.telefones.push(this.formBuilder.group({
-					numero: [telefone.numero, [Validators.required, Validators.minLength(11)]],
-					contato: [telefone.contato, Validators.required]
-				}));
-			}
+		for (const telefone of cliente.telefones) {
+			this.telefones.push(this.formBuilder.group({
+				numero: [telefone.numero, [Validators.required, Validators.minLength(11)]],
+				contato: [telefone.contato, Validators.required]
+			}));
 		}
 	}
-
 
 	adicionarMaisTelefone(): void {
 		this.telefones.push(this.formBuilder.group({
@@ -129,12 +104,25 @@ export class CadastroComponent implements OnInit {
 			return;
 		}
 
-		this.cadastroService.enviarCliente(this.form.value).subscribe(() => {
-			this.message.successMessage('Cliente salvo com sucesso');
-		}, error => {
-			this.message.successMessage(error.message);
-			console.log(error)
-		});
+		if (this.editMode){
+			this.cadastroService.editarCliente(this.idCliente, this.form.value).subscribe(() => {
+				const snackBarRef = this.message.successMessage('Cliente alterado com sucesso!');
+				snackBarRef.afterOpened().subscribe(() => {
+					this.router.navigateByUrl('/home');
+				});
+			}, error => {
+				this.message.errorMessage(error.message);
+			});
+		}
+		else {
+			this.cadastroService.enviarCliente(this.form.value).subscribe(() => {
+				this.message.successMessage('Cliente salvo com sucesso');
+				this.router.navigateByUrl('/home');
+			}, error => {
+				this.message.errorMessage(error.message);
+				console.log(error)
+			});
+		}
 	}
 
 	getMessagemObrigatorio(): string {

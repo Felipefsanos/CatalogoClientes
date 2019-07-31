@@ -20,4 +20,8 @@ export class CadastroService extends BaseHttpService {
 	obterCliente(id: number): Observable<any> {
 		return this.get(`clients/${id}`);
 	}
+
+	editarCliente(id: number, cliente: Cliente): Observable<any> {
+		return  this.put(`clients/${id}`, cliente);
+	}
 }

@@ -6,7 +6,9 @@
 				<mat-error *ngIf="form.controls.razaoSocial.invalid">{{getMessagemObrigatorio()}}</mat-error>
 			</mat-form-field>
 			<mat-form-field fxFlex="1 1 auto">
-				<input matInput maxlength="19" placeholder="CNPJ" mask="00.000.000/0000-00" required formControlName="cnpj">
+				<input matInput maxlength="18" placeholder="CNPJ"
+							 value="{{this.form.controls['cnpj'].value | mask: '00.000.000/0000-00'}}" required
+							 formControlName="cnpj">
 				<mat-error *ngIf="form.controls.cnpj.invalid">{{getMessagemObrigatorio()}}</mat-error>
 				<mat-error *ngIf="form.controls.cnpj.minLength">Valor inválido</mat-error>
 			</mat-form-field>
@@ -17,8 +19,9 @@
 				<mat-error *ngIf="form.controls.nomeFantasia.invalid">{{getMessagemObrigatorio()}}</mat-error>
 			</mat-form-field>
 			<mat-form-field fxFlex="1 1 auto">
-				<input matInput maxlength="16" placeholder="Inscrição Estadual" mask="000.000.000/0000" required
-							 formControlName="inscricaoEstadual">
+				<input matInput maxlength="16" placeholder="Inscrição Estadual" required
+							 formControlName="inscricaoEstadual"
+							 value="{{this.form.controls['inscricaoEstadual'].value | mask: '000.000.000/0000'}}">
 				<mat-error *ngIf="form.controls.inscricaoEstadual.invalid">{{getMessagemObrigatorio()}}</mat-error>
 			</mat-form-field>
 		</div>
@@ -28,11 +31,12 @@
 			<div *ngFor="let item of telefones.controls; let i=index">
 				<div fxLayout="row wrap" fxLayoutGap="10px" class="contato-container" formGroupName="{{i}}">
 					<mat-form-field fxFlex="1 1 auto" fxFlex.xs="35%">
-						<input matInput placeholder="Telefone" formControlName="numero" mask="(00)00000-0000" required>
+						<input matInput placeholder="Telefone" formControlName="numero" required
+									 value="{{item.controls['numero'].value | mask: '(00) 00000-0000'}}">
 						<mat-error *ngIf="item.controls.numero.invalid">{{getMessagemObrigatorio()}}</mat-error>
 					</mat-form-field>
 					<mat-form-field fxFlex="20 1 auto" fxFlex.xs="35%">
-						<input matInput placeholder="Nome do contato" formControlName="contato" required>
+						<input matInput placeholder="Nome do contato" formControlName="contato" required >
 						<mat-error *ngIf="item.controls.contato.invalid">{{getMessagemObrigatorio()}}</mat-error>
 					</mat-form-field>
 					<div fxFlex="0 1 auto" fxLayoutAlign="end" fxLayoutGap="10px" fxFlex.xs="20%">

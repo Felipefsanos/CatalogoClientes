@@ -4,7 +4,7 @@ import {Endereco} from './endereco';
 export class Cliente {
 	id?: number;
 	razaoSocial: string;
-	CNPJ: number;
+	cnpj: number;
 	nomeFantasia: string;
 	inscricaoEstadual: number;
 	telefones: Telefone[];
