@@ -43,7 +43,7 @@ import {InterceptorService} from "./Services/base/interceptor.service";
     HomeComponent,
     CadastroComponent,
     ModalConfirmacaoComponent,
-    LoadingComponent
+    LoadingComponent,
   ],
 	imports: [
 		BrowserModule,

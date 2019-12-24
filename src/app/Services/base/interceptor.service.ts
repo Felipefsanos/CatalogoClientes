@@ -20,11 +20,11 @@ export class InterceptorService implements HttpInterceptor {
 		if(user && user.token){
 			req = req.clone({
 				setHeaders: {
-					Authorization: `Bearer ${user.token.token}`
+					Authorization: `Bearer ${user.token.token}`,
+					'Content-Type': 'application/json'
 				}
 			})
 		}
-
 		return next.handle(req).pipe(tap((event: HttpEvent<any>) => {
 				if (event instanceof HttpResponse) {
 					this.loadingService.hide();

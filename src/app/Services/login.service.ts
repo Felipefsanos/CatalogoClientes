@@ -26,7 +26,7 @@ export class LoginService extends BaseHttpService{
 
 	public logout(){
 		this.userService.removeUser();
-		this.router.navigateByUrl('login');
+		this.router.navigateByUrl('login').then(() => {});
 		this.showNavigation(false);
 	}
 
