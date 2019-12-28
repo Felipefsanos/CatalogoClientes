@@ -26,6 +26,7 @@ export class HomeComponent implements OnInit {
 	// displayedColumns: string[] = ['Nome Fantasia', 'Telefone', 'Contato', 'Ação'];
 	displayedColumns: string[] = ['CNPJ', 'Nome Fantasia', 'Telefone', 'Contato', 'Ação'];
 	columnsToDisplay = ['cnpj', 'nomeFantasia', 'telefone', 'contato', 'acao'];
+	expandedElement: Cliente | null;
 
 	@ViewChild(MatSort, {static: true}) sort: MatSort;
 	@ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -65,7 +66,6 @@ export class HomeComponent implements OnInit {
 	obterClients(): void {
 		this.homeService.obterClientes().subscribe(res => {
 			if (res) {
-				console.log(res);
 				this.dataSource = new MatTableDataSource<Cliente[]>(res);
 				this.dataSource.paginator = this.paginator;
 				this.dataSource.sort = this.sort;

@@ -1,12 +1,12 @@
 <div class="content" fxLayout="column" fxLayoutAlign="center stretch">
 	<div class="mat-elevation-z8">
-		<table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
+		<mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
 
 			<ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay; let i = index">
 				<div [ngSwitch]="column">
 					<ng-template [ngSwitchCase]="'acao'">
-						<th mat-header-cell *matHeaderCellDef> Ação</th>
-						<td mat-cell *matCellDef="let element">
+						<mat-header-cell *matHeaderCellDef> Ação</mat-header-cell>
+						<mat-cell *matCellDef="let element">
 							<button mat-button class="button-orange" type="button" [routerLink]="['/editar', element.id]">
 								<i class="material-icons">create</i>
 							</button>
@@ -17,52 +17,121 @@
 											(click)="expandedElement = expandedElement === element ? null : element">
 								<i class="material-icons">remove_red_eye</i>
 							</button>
-						</td>
+						</mat-cell>
 					</ng-template>
 					<ng-template [ngSwitchCase]="'telefone'">
-						<th mat-header-cell *matHeaderCellDef> {{displayedColumns[i]}} </th>
-						<td mat-cell *matCellDef="let element"> {{element.telefones[0].numero | mask: '(00) 00000-0000'}} </td>
+						<mat-header-cell *matHeaderCellDef> {{displayedColumns[i]}} </mat-header-cell>
+						<mat-cell *matCellDef="let element"> {{element.telefones[0].numero | mask: '(00) 00000-0000'}} </mat-cell>
 					</ng-template>
 					<ng-template [ngSwitchCase]="'contato'">
-						<th mat-header-cell *matHeaderCellDef> {{displayedColumns[i]}} </th>
-						<td mat-cell *matCellDef="let element"> {{element.telefones[0].contato}} </td>
+						<mat-header-cell *matHeaderCellDef> {{displayedColumns[i]}} </mat-header-cell>
+						<mat-cell *matCellDef="let element"> {{element.telefones[0].contato}} </mat-cell>
 					</ng-template>
 					<ng-template [ngSwitchCase]="'cnpj'">
-						<th mat-header-cell *matHeaderCellDef> {{displayedColumns[i]}} </th>
-						<td mat-cell *matCellDef="let element"> {{element[column] | mask: '00.000.000/0000-00'}} </td>
+						<mat-header-cell *matHeaderCellDef> {{displayedColumns[i]}} </mat-header-cell>
+						<mat-cell *matCellDef="let element"> {{element[column] | mask: '00.000.000/0000-00'}} </mat-cell>
 					</ng-template>
 					<ng-template ngSwitchDefault>
-						<th mat-header-cell *matHeaderCellDef> {{displayedColumns[i]}} </th>
-						<td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+						<mat-header-cell *matHeaderCellDef> {{displayedColumns[i]}} </mat-header-cell>
+						<mat-cell *matCellDef="let element"> {{element[column]}} </mat-cell>
 					</ng-template>
 				</div>
 			</ng-container>
 
 			<!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
 			<ng-container matColumnDef="expandedDetail">
-				<td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
-					<div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-						<div class="example-element-diagram">
-							<div class="example-element-position"> {{element.position}} </div>
-							<div class="example-element-symbol"> {{element.symbol}} </div>
-							<div class="example-element-name"> {{element.name}} </div>
-							<div class="example-element-weight"> {{element.weight}} </div>
+				<mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length" fxLayoutAlign="center center">
+					<div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'"
+							 fxLayout="column" fxLayoutAlign="center center">
+						<div fxLayout="row" fxLayoutAlign="center center">
+							<mat-card fxLayout="column" class="m-20 mat-elevation-z8">
+								<mat-card-header fxLayoutAlign="center center">
+									<mat-card-title class="">Estabelecimento</mat-card-title>
+								</mat-card-header>
+								<mat-card-content fxLayout="row">
+									<mat-divider></mat-divider>
+									<div fxLayout="column" class="m-r-l-20">
+										<h3>Razão Social</h3>
+										<p>{{element.razaoSocial}}</p>
+									</div>
+									<div fxLayout="column" class="m-r-l-20">
+										<h3>I.E.</h3>
+										<p>{{element.inscricaoEstadual}}</p>
+									</div>
+									<div fxLayout="column" class="m-r-l-20">
+										<h3>Observacoes</h3>
+										<p>{{element.observacoes}}</p>
+									</div>
+								</mat-card-content>
+							</mat-card>
 						</div>
-						<div class="example-element-description">
-							{{element.description}}
-							<span class="example-element-description-attribution"> -- Wikipedia </span>
+						<div fxLayout="row" fxLayoutAlign="center center">
+							<mat-card fxLayout="column" class="m-20 mat-elevation-z8">
+								<mat-card-header fxLayoutAlign="center center">
+									<mat-card-title class="">Contato</mat-card-title>
+								</mat-card-header>
+								<mat-card-content>
+									<mat-divider></mat-divider>
+									<ng-container *ngFor="let telefone of element.telefones">
+										<div fxLayout="row">
+											<div fxLayout="column" class="m-r-l-20">
+												<h3>Telefone</h3>
+												<p>{{telefone.numero | mask: '(00) 00000-0000'}}</p>
+											</div>
+											<div fxLayout="column" class="m-r-l-20">
+												<h3>Contato</h3>
+												<p>{{telefone.contato}}</p>
+											</div>
+										</div>
+									</ng-container>
+								</mat-card-content>
+							</mat-card>
+						</div>
+						<div fxLayout="row" fxLayoutAlign="center center">
+							<mat-card fxLayout="column" class="m-20 mat-elevation-z8">
+								<mat-card-header fxLayoutAlign="center center">
+									<mat-card-title class="">Endereço</mat-card-title>
+								</mat-card-header>
+								<mat-card-content fxLayout="row">
+									<mat-divider></mat-divider>
+									<div fxLayout="column" class="m-r-l-20">
+										<h3>Logradouro</h3>
+										<p>{{element.endereco.logradouro}}</p>
+									</div>
+									<div fxLayout="column" class="m-r-l-20">
+										<h3>Número</h3>
+										<p>{{element.endereco.numero}}</p>
+									</div>
+									<div fxLayout="column" class="m-r-l-20">
+										<h3>Complemento</h3>
+										<p>{{element.endereco.complemento}}</p>
+									</div>
+									<div fxLayout="column" class="m-r-l-20">
+										<h3>Bairro</h3>
+										<p>{{element.endereco.bairro}}</p>
+									</div>
+									<div fxLayout="column" class="m-r-l-20">
+										<h3>Cidade</h3>
+										<p>{{element.endereco.cidade}}</p>
+									</div>
+									<div fxLayout="column" class="m-r-l-20">
+										<h3>UF</h3>
+										<p>{{element.endereco.uf}}</p>
+									</div>
+								</mat-card-content>
+							</mat-card>
 						</div>
 					</div>
-				</td>
+				</mat-cell>
 			</ng-container>
 
-			<tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-			<tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
+			<mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+			<mat-row *matRowDef="let element; columns: columnsToDisplay;"
 					class="example-element-row"
 					[class.example-expanded-row]="expandedElement === element">
-			</tr>
-			<tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
-		</table>
+			</mat-row>
+			<mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></mat-row>
+		</mat-table>
 		<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 	</div>
 	<div fxLayout="column" dir="rtl" fxLayoutAlign="center" class="fab-container">
